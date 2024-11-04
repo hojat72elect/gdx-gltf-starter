@@ -36,7 +36,7 @@ public class TerrainShader extends BaseShader {
     public static class TerrainSetters {
         public final static Setter diffuseUVTransform = new LocalSetter() {
             @Override
-            public void set (BaseShader shader, int inputID, Renderable renderable, Attributes combinedAttributes) {
+            public void set(BaseShader shader, int inputID, Renderable renderable, Attributes combinedAttributes) {
                 TerrainMaterial mat = getTerrainMaterial(renderable);
                 TerrainTextureAttribute attr = (TerrainTextureAttribute) mat.get(TerrainTextureAttribute.DiffuseBase);
                 shader.set(inputID, attr.offsetU, attr.offsetV, attr.scaleU, attr.scaleV);
@@ -45,7 +45,7 @@ public class TerrainShader extends BaseShader {
 
         public final static Setter diffuseBaseTexture = new LocalSetter() {
             @Override
-            public void set (BaseShader shader, int inputID, Renderable renderable, Attributes combinedAttributes) {
+            public void set(BaseShader shader, int inputID, Renderable renderable, Attributes combinedAttributes) {
                 TerrainMaterial mat = getTerrainMaterial(renderable);
                 TerrainTextureAttribute attr = (TerrainTextureAttribute) mat.get(TerrainTextureAttribute.DiffuseBase);
                 int unit = shader.context.textureBinder.bind(attr.textureDescription);
@@ -54,7 +54,7 @@ public class TerrainShader extends BaseShader {
         };
         public final static Setter diffuseHeightTexture = new LocalSetter() {
             @Override
-            public void set (BaseShader shader, int inputID, Renderable renderable, Attributes combinedAttributes) {
+            public void set(BaseShader shader, int inputID, Renderable renderable, Attributes combinedAttributes) {
                 TerrainMaterial mat = getTerrainMaterial(renderable);
                 TerrainTextureAttribute attr = (TerrainTextureAttribute) mat.get(TerrainTextureAttribute.DiffuseHeight);
                 int unit = shader.context.textureBinder.bind(attr.textureDescription);
@@ -63,7 +63,7 @@ public class TerrainShader extends BaseShader {
         };
         public final static Setter diffuseSlopeTexture = new LocalSetter() {
             @Override
-            public void set (BaseShader shader, int inputID, Renderable renderable, Attributes combinedAttributes) {
+            public void set(BaseShader shader, int inputID, Renderable renderable, Attributes combinedAttributes) {
                 TerrainMaterial mat = getTerrainMaterial(renderable);
                 TerrainTextureAttribute attr = (TerrainTextureAttribute) mat.get(TerrainTextureAttribute.DiffuseSlope);
                 int unit = shader.context.textureBinder.bind(attr.textureDescription);
@@ -72,7 +72,7 @@ public class TerrainShader extends BaseShader {
         };
         public final static Setter minSlope = new LocalSetter() {
             @Override
-            public void set (BaseShader shader, int inputID, Renderable renderable, Attributes combinedAttributes) {
+            public void set(BaseShader shader, int inputID, Renderable renderable, Attributes combinedAttributes) {
                 TerrainMaterial mat = getTerrainMaterial(renderable);
                 TerrainFloatAttribute attr = (TerrainFloatAttribute) mat.get(TerrainFloatAttribute.MinSlope);
                 shader.set(inputID, attr.value);
@@ -81,7 +81,9 @@ public class TerrainShader extends BaseShader {
 
     }
 
-    /** The renderable used to create this shader, invalid after the call to init */
+    /**
+     * The renderable used to create this shader, invalid after the call to init
+     */
     private Renderable renderable;
 
     // Global uniforms
@@ -179,13 +181,15 @@ public class TerrainShader extends BaseShader {
 
         if (dirs != null) {
             set(u_dirLights0color, dirs.get(0).color.r, dirs.get(0).color.g,
-                    dirs.get(0).color.b);
+                    dirs.get(0).color.b
+            );
             set(u_dirLights0direction, dirs.get(0).direction.x,
-                    dirs.get(0).direction.y, dirs.get(0).direction.z);
+                    dirs.get(0).direction.y, dirs.get(0).direction.z
+            );
         }
 
         ColorAttribute ambientLight = combinedAttributes.get(ColorAttribute.class, ColorAttribute.AmbientLight);
-        if(ambientLight != null){
+        if (ambientLight != null) {
             program.setUniformf(u_ambientLight, ambientLight.color.r, ambientLight.color.g, ambientLight.color.b);
         }
     }
@@ -193,7 +197,6 @@ public class TerrainShader extends BaseShader {
     @Override
     public int compareTo(Shader other) {
         if (other == null) return -1;
-        if (other == this) return 0;
         return 0;
     }
 
@@ -206,18 +209,18 @@ public class TerrainShader extends BaseShader {
         return terrainMaterialMask == getTerrainMaterial(instance).getMask();
     }
 
-    private static final long combineAttributeMasks (final Renderable renderable) {
+    private static long combineAttributeMasks(final Renderable renderable) {
         long mask = 0;
         if (renderable.environment != null) mask |= renderable.environment.getMask();
         if (renderable.material != null) mask |= renderable.material.getMask();
         return mask;
     }
 
-    public static String getDefaultVertexShader()  {
+    public static String getDefaultVertexShader() {
         return Gdx.files.internal("shaders/terrain.vert.glsl").readString();
     }
 
-    public static String getDefaultFragmentShader()  {
+    public static String getDefaultFragmentShader() {
         return Gdx.files.internal("shaders/terrain.frag.glsl").readString();
     }
 

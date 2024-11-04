@@ -14,10 +14,7 @@ import com.mygdx.game.terrains.attributes.TerrainFloatAttribute;
 import com.mygdx.game.terrains.attributes.TerrainMaterialAttribute;
 import com.mygdx.game.terrains.attributes.TerrainTextureAttribute;
 
-/**
- * @author JamesTKhan
- * @version August 07, 2022
- */
+
 public class HeightMapTerrain extends Terrain {
     private static final Vector3 c00 = new Vector3();
     private static final Vector3 c01 = new Vector3();
@@ -108,13 +105,15 @@ public class HeightMapTerrain extends Terrain {
                     c00.set(0, field.data[gridZ * width + gridX], 0),
                     c10.set(1, field.data[gridZ * width + (gridX + 1)], 0),
                     c01.set(0, field.data[(gridZ + 1) * width + gridX], 1),
-                    new Vector2(xCoord, zCoord));
+                    new Vector2(xCoord, zCoord)
+            );
         } else {
-            height =  barryCentric(
+            height = barryCentric(
                     c10.set(1, field.data[gridZ * width + (gridX + 1)], 0),
                     c11.set(1, field.data[(gridZ + 1) * width + (gridX + 1)], 1),
                     c01.set(0, field.data[(gridZ + 1) * width + gridX], 1),
-                    new Vector2(xCoord, zCoord));
+                    new Vector2(xCoord, zCoord)
+            );
         }
 
         return height * heightMagnitude;

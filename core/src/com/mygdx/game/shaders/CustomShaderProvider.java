@@ -4,13 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g3d.Renderable;
 import com.badlogic.gdx.graphics.g3d.Shader;
 import com.mygdx.game.terrains.attributes.TerrainMaterialAttribute;
-import net.mgsx.gltf.scene3d.shaders.PBRShaderConfig;
 import net.mgsx.gltf.scene3d.shaders.PBRShaderProvider;
 
-/**
- * @author JamesTKhan
- * @version August 15, 2022
- */
+
 public class CustomShaderProvider extends PBRShaderProvider {
 
     public static final String TAG = CustomShaderProvider.class.getSimpleName();
